@@ -10,7 +10,7 @@ set(TOOLCHAIN_BUILD_ROOT "${CMAKE_CURRENT_BINARY_DIR}/src/build" CACHE PATH "Dir
 set(TOOLCHAIN_STAMP_ROOT "${TOOLCHAIN_SRC_ROOT}" CACHE PATH  "Directory where timestamps are put")
 set(TOOLCHAIN_TMP_DIR "${CMAKE_BINARY_DIR}/tmp" CACHE PATH "Directory where temp stuff is put")
 
-set(TOOLCHAIN_PREFIX ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Directory where toolchain binaries will be installed")
+set(TOOLCHAIN_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Directory where toolchain binaries will be installed")
 
 set(TOOLCHAIN_TARGET i686-elf CACHE STRING "What architecture you want to target")
 
@@ -58,7 +58,7 @@ ExternalProject_Add( binutils
 	DOWNLOAD_DIR ${TOOLCHAIN_DIST_DIR}
 	SOURCE_DIR ${TOOLCHAIN_SRC_ROOT}/binutils-${TOOLCHAIN_BINUTILS_VERSION}
 	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/binutils-${TOOLCHAIN_BINUTILS_VERSION}-${TOOLCHAIN_TARGET}
-	INSTALL_DIR ${TOOLCHAIN_INSTALL_DIR}}
+	INSTALL_DIR ${TOOLCHAIN_INSTALL_DIR}
 
 
 
@@ -70,9 +70,9 @@ ExternalProject_Add( binutils
 
 
 
-set(GCC_VER 6.3.0)
+set(GCC_VERSION 6.3.0)
 set(GCC_HASH MD5=6e5ea04789678f1250c1b30c4d9ec417)
-set(GCC_URL ftp://ftp.gnu.org/gnu/gcc/gcc-${GCC_VER}/gcc-${GCC_VER}.tar.gz)
+set(GCC_URL ftp://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz)
 
 
 #we need to call configure with a relative path, otherwise it breaks windows builds
@@ -88,8 +88,8 @@ ExternalProject_Add( gcc
 	TMP_DIR ${TOOLCHAIN_TMP_DIR}
 	STAMP_DIR ${TOOLCHAIN_STAMP_ROOT}/gcc-stamp
 	DOWNLOAD_DIR ${TOOLCHAIN_DIST_DIR}
-	SOURCE_DIR ${TOOLCHAIN_SRC_ROOT}/gcc-${TOOLCHAIN_GCC_VERSION}
-	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/gcc-${TOOLCHAIN_GCC_VERSION}-${TOOLCHAIN_TARGET}
+	SOURCE_DIR ${TOOLCHAIN_SRC_ROOT}/gcc-${GCC_VERSION}
+	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/gcc-${GCC_VERSION}-${TOOLCHAIN_TARGET}
 	INSTALL_DIR ${TOOLCHAIN_INSTALL_DIR}
 
 
