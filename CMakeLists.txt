@@ -120,3 +120,10 @@ ExternalProject_Add(nasm
 	CONFIGURE_COMMAND ${TOOLCHAIN_SRC_ROOT}/nasm-${NASM_VERSION}/configure --prefix=${TOOLCHAIN_INSTALL_DIR}
 	BUILD_COMMAND make
 )
+
+ExternalProject_Add_Step( nasm hack_version
+	COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${TOOLCHAIN_SRC_ROOT}/nasm-${NASM_VERSION}/version.mac" .
+	WORKING_DIRECTORY ${TOOLCHAIN_BUILD_ROOT}/nasm-${NASM_VERSION}
+	DEPENDEES download
+	DEPENDERS build
+)
