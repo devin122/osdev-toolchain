@@ -88,7 +88,7 @@ ExternalProject_Add( gcc
 	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/gcc-${GCC_VERSION}-${TOOLCHAIN_TARGET}
 	INSTALL_DIR ${TOOLCHAIN_INSTALL_DIR}
 
-	PATCH_COMMAND patch -p1 < "${CMAKE_CURRENT_SOURCE_DIR}/gcc-6.3.patch"
+	PATCH_COMMAND patch -N -p1 < "${CMAKE_CURRENT_SOURCE_DIR}/gcc-6.3.patch"
 	CONFIGURE_COMMAND ${GCC_CONFIG_PATH} --prefix=$<SHELL_PATH:${TOOLCHAIN_INSTALL_DIR}> --target=${TOOLCHAIN_TARGET}  --disable-nls  --enable-languages=c,c++ --without-headers
 	BUILD_COMMAND "\$(MAKE)" all-gcc all-target-libgcc
 	INSTALL_COMMAND make install-gcc install-target-libgcc
