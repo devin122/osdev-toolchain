@@ -101,7 +101,7 @@ ExternalProject_Add_Step( gcc download_prerequisites
 	COMMENT "Downloading GCC dependencies"
 )
 set(NASM_VERSION 2.12.02)
-set(NASM_HASH MD5=c75b78faf2d3797b431047f9c8656c09)
+set(NASM_HASH MD5=908b09944aa2251244565c00458b535a)
 
 set(NASM_URL http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/nasm-${NASM_VERSION}.tar.gz)
 
