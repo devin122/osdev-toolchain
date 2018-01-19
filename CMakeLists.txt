@@ -93,6 +93,13 @@ ExternalProject_Add( gcc
 	BUILD_COMMAND "\$(MAKE)" all-gcc all-target-libgcc
 	INSTALL_COMMAND make install-gcc install-target-libgcc
 )
+ExternalProject_Add_Step( gcc download_prerequisites
+	COMMAND "${TOOLCHAIN_SRC_ROOT}/gcc-${GCC_VERSION}/contrib/download_prerequisites"
+	WORKING_DIRECTORY ${TOOLCHAIN_SRC_ROOT}/gcc-${GCC_VERSION}
+	DEPENDEES download
+	DEPENDERS configure
+	COMMENT "Downloading GCC dependencies"
+)
 set(NASM_VERSION 2.12.02)
 set(NASM_HASH MD5=c75b78faf2d3797b431047f9c8656c09)
 
