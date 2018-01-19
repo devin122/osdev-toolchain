@@ -59,13 +59,9 @@ ExternalProject_Add( binutils
 	SOURCE_DIR ${TOOLCHAIN_SRC_ROOT}/binutils-${TOOLCHAIN_BINUTILS_VERSION}
 	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/binutils-${TOOLCHAIN_BINUTILS_VERSION}-${TOOLCHAIN_TARGET}
 	INSTALL_DIR ${TOOLCHAIN_INSTALL_DIR}
-
-
-
 	CONFIGURE_COMMAND  ${TOOLCHAIN_SRC_ROOT}/binutils-${TOOLCHAIN_BINUTILS_VERSION}/configure --prefix=${TOOLCHAIN_INSTALL_DIR} --target=${TOOLCHAIN_TARGET}  --with-sysroot --disable-nls --disable-werror
 
-
-	BUILD_COMMAND make
+	BUILD_COMMAND "\$(MAKE)"
 )
 
 
@@ -76,7 +72,7 @@ set(GCC_URL ftp://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.
 
 
 #we need to call configure with a relative path, otherwise it breaks windows builds
-file(RELATIVE_PATH GCC_CONFIG_PATH ${TOOLCHAIN_BUILD_ROOT}/gcc  ${TOOLING_SRC_DIR}/gcc/configure)
+file(RELATIVE_PATH GCC_CONFIG_PATH ${TOOLCHAIN_BUILD_ROOT}/gcc  ${TOOLCHAIN_SRC_ROOT}/gcc-${GCC_VERSION}/configure)
 
 ExternalProject_Add( gcc
 	DEPENDS binutils
@@ -93,12 +89,11 @@ ExternalProject_Add( gcc
 	INSTALL_DIR ${TOOLCHAIN_INSTALL_DIR}
 
 
-	CONFIGURE_COMMAND ${GCC_CONFIG_PATH} --prefix=$<SHELL_PATH:${TOOLCHAIN_PREFIX}> --target=${TOOLCHAIN_TARGET}  --disable-nls  --enable-languages=c,c++ --without-headers
-	BUILD_COMMAND \$(MAKE) all-gcc all-target-libgcc
+	CONFIGURE_COMMAND ${GCC_CONFIG_PATH} --prefix=$<SHELL_PATH:${TOOLCHAIN_INSTALL_DIR}> --target=${TOOLCHAIN_TARGET}  --disable-nls  --enable-languages=c,c++ --without-headers
+	BUILD_COMMAND "\$(MAKE)" all-gcc all-target-libgcc
 	INSTALL_COMMAND make install-gcc install-target-libgcc
 )
-
-set(TOOLCHAIN_NASM_VERSION 2.12.02)
+set(NASM_VERSION 2.12.02)
 set(NASM_HASH MD5=c75b78faf2d3797b431047f9c8656c09)
 
 set(NASM_URL http://www.nasm.us/pub/nasm/releasebuilds/${NASM_VERSION}/nasm-${NASM_VERSION}.tar.gz)
@@ -109,12 +104,12 @@ ExternalProject_Add(nasm
 
 	#Setup Paths
 	TMP_DIR ${TOOLCHAIN_TMP_DIR}
-	STAMP_DIR ${TOOLCHAIN_STAMP_ROOT}/nasm-${TOOLCHAIN_BINUTILS_VERSION}-stamp
+	STAMP_DIR ${TOOLCHAIN_STAMP_ROOT}/nasm-${NASM_VERSION}-stamp
 	DOWNLOAD_DIR ${TOOLCHAIN_DIST_DIR}
-	SOURCE_DIR ${TOOLCHAIN_SRC_ROOT}/nasm-${TOOLCHAIN_BINUTILS_VERSION}
-	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/nasm-${TOOLCHAIN_NASM_VERSION}
+	SOURCE_DIR ${TOOLCHAIN_SRC_ROOT}/nasm-${NASM_VERSION}
+	BINARY_DIR ${TOOLCHAIN_BUILD_ROOT}/nasm-${NASM_VERSION}
 	INSTALL_DIR ${TOOLCHAIN_PREFIX}
 
-	CONFIGURE_COMMAND ${TOOLING_SRC_DIR}/nasm/configure --prefix=${TOOLING_PREFIX}
+	CONFIGURE_COMMAND ${TOOLCHAIN_SRC_ROOT}/nasm-${NASM_VERSION}/configure --prefix=${TOOLCHAIN_INSTALL_DIR}
 	BUILD_COMMAND make
 )
