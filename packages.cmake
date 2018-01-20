@@ -1,9 +1,8 @@
 # Versions / URLS for the various packages that are downloaded
 
-set(TOOLCHAIN_BINUTILS_VERSION 2.27)
-set(TOOLCHAIN_BINUTILS_HASH 41b053ed4fb2c6a8173ef421460fbb28)
-set(TOOLCHAIN_BINUTILS_URL ftp://ftp.gnu.org/gnu/binutils/binutils-${TOOLCHAIN_BINUTILS_VERSION}.tar.gz)
-
+set(BINUTILS_VERSION 2.27)
+set(BINUTILS_HASH 41b053ed4fb2c6a8173ef421460fbb28)
+set(BINUTILS_URL ftp://ftp.gnu.org/gnu/binutils/binutils-${BINUTILS_VERSION}.tar.gz)
 
 set(GCC_VERSION 6.3.0)
 set(GCC_HASH MD5=6e5ea04789678f1250c1b30c4d9ec417)
